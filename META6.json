@@ -20,5 +20,5 @@
   "test-depends": [
     "Test::META"
   ],
-  "source-url": "https://github.com/PostCocoon/P6-Utils-Url.git"
+  "source-url": "https://github.com/PostCocoon/P6-Url.git"
 }
