@@ -1,0 +1,24 @@
+{
+  "perl": "6",
+  "name": "PostCocoon::Utils::Url",
+  "version": "1.0",
+  "auth": "github:PostCocoon",
+  "description": "Some simple but useful URL utils",
+  "license": "Artistic-2.0",
+  "depends": [],
+  "provides": {
+    "PostCocoon::Utils::Url": "lib/PostCocoon/Utils/Url.pm6"
+  },
+  "authors": [
+    "eater <perl6@eaterofco.de>"
+  ],
+  "tags": [
+    "query string",
+    "url",
+    "http"
+  ],
+  "test-depends": [
+    "Test::META"
+  ],
+  "source-url": "https://github.com/PostCocoon/P6-Utils-Url.git"
+}
