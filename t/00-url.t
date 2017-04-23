@@ -1,8 +1,8 @@
 use v6;
-use PostCocoon::Utils::Url;
+use PostCocoon::Url;
 use Test;
 
-plan 13;
+plan 21;
 ok "%00" eq url-encode("\0"), "Encode null-char";
 ok "%F0%9F%91%8C" eq url-encode("👌"), "Encode emoji";
 ok url-decode(url-encode("\0")) eq "\0", "Encode and decode null-char";
@@ -16,3 +16,11 @@ ok "%F0%9F%91%8C=%F0%9F%91%8C" eq build-query-string({ "👌" => "👌" }), "Bui
 ok { help => <nee ja> } eq parse-query-string("help=nee\&help=ja"), "Parse simple query string with duplicate keys";
 ok { help => True } eq parse-query-string("help"), "Parse simple query string without value";
 ok { "👌" => "👌" } eq parse-query-string("%F0%9F%91%8C=%F0%9F%91%8C"), "Parse emoji query string";
+ok { host => "help.com:42", hostname => "help.com", port => "42", "scheme" => "help" } eq parse-url("help://help.com:42"), "Parse simple url";
+ok "help://help.com:42" eq build-url(parse-url("help://help.com:42")), "Parse and rebuild simple url";
+ok "[::]" eq parse-url("help://[::]:42")<hostname> // "", "Parse IPv6 url";
+ok "help://[::]:42" eq build-url(parse-url("help://[::]:42")), "Parse and rebuild IPv6 url";
+ok False eq is-valid-url(""), "Check that empty string is not an valid url";
+ok False eq is-valid-url("je moeder"), "Check that \"je moeder\" is not an valid url";
+ok True eq is-valid-url("http://126.0.1.3"), "Check that \"http://126.0.1.3\" is an valid url";
+ok True eq is-valid-url("/"), "Check that \"/\" is an valid url";
