@@ -1,0 +1,30 @@
+use Test;
+
+use PostCocoon::Url;
+
+plan 21;
+
+is "%00", url-encode("\0"), "Encode null-char";
+is "%F0%9F%91%8C", url-encode("👌"), "Encode emoji";
+is url-decode(url-encode("\0")), "\0", "Encode and decode null-char";
+is "👌", url-decode(url-encode("👌")), "Encode and decode emoji";
+is "help%20mij", url-encode("help mij"), "Encode space";
+is "help mij", url-decode("help%20mij"), "Decode space";
+is "help=nee", build-query-string(help => "nee"), "Build simple query string";
+is "help", build-query-string(help => True), "build simple query string without value";
+is "help=nee\&help=ja", build-query-string(help => <nee ja>), "Build simple query string with duplicate keys";
+is "%F0%9F%91%8C=%F0%9F%91%8C", build-query-string({ "👌" => "👌" }), "Build query with emoji key";
+is { help => <nee ja> }, parse-query-string("help=nee\&help=ja"), "Parse simple query string with duplicate keys";
+is { help => True }, parse-query-string("help"), "Parse simple query string without value";
+is { "👌" => "👌" }, parse-query-string("%F0%9F%91%8C=%F0%9F%91%8C"), "Parse emoji query string";
+is { host => "help.com:42", hostname => "help.com", port => "42", "scheme" => "help" }, parse-url("help://help.com:42"), "Parse simple url";
+is "help://help.com:42", build-url(parse-url("help://help.com:42")), "Parse and rebuild simple url";
+is "[::]", parse-url("help://[::]:42")<hostname> // "", "Parse IPv6 url";
+is "help://[::]:42", build-url(parse-url("help://[::]:42")), "Parse and rebuild IPv6 url";
+
+ok False eq is-valid-url(""), "Check that empty string is not an valid url";
+ok False eq is-valid-url("je moeder"), "Check that \"je moeder\" is not an valid url";
+ok True eq is-valid-url("http://126.0.1.3"), "Check that \"http://126.0.1.3\" is an valid url";
+ok True eq is-valid-url("/"), "Check that \"/\" is an valid url";
+
+# vim: expandtab shiftwidth=4

@@ -1,24 +1,28 @@
 {
-  "perl": "6",
-  "name": "PostCocoon::Url",
-  "version": "1.0",
-  "auth": "github:PostCocoon",
+  "auth": "zef:raku-community-modules",
+  "authors": [
+    "eater"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
   "description": "Some simple but useful URL utils",
   "license": "Artistic-2.0",
-  "depends": [],
+  "name": "PostCocoon::Url",
+  "perl": "6",
   "provides": {
-    "PostCocoon::Url": "lib/PostCocoon/Url.pm6"
+    "PostCocoon::Url": "lib/PostCocoon/Url.rakumod"
   },
-  "authors": [
-    "eater <perl6@eaterofco.de>"
+  "resources": [
   ],
+  "source-url": "https://github.com/raku-community-modules/PostCocoon-Url.git",
   "tags": [
     "query string",
     "url",
     "http"
   ],
   "test-depends": [
-    "Test::META"
   ],
-  "source-url": "https://github.com/PostCocoon/P6-Url.git"
+  "version": "1.0"
 }

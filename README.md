@@ -1,15 +1,22 @@
-TITLE
-=====
+[![Actions Status](https://github.com/raku-community-modules/PostCocoon-Url/actions/workflows/linux.yml/badge.svg)](https://github.com/raku-community-modules/PostCocoon-Url/actions) [![Actions Status](https://github.com/raku-community-modules/PostCocoon-Url/actions/workflows/macos.yml/badge.svg)](https://github.com/raku-community-modules/PostCocoon-Url/actions) [![Actions Status](https://github.com/raku-community-modules/PostCocoon-Url/actions/workflows/windows.yml/badge.svg)](https://github.com/raku-community-modules/PostCocoon-Url/actions)
 
-PostCocoon::Url
+NAME
+====
 
-SUBTITLE
-========
-
-Some simple but useful URL utils
+PostCocoon::Url - Some simple but useful URL utils
 
 SYNOPSIS
 ========
+
+```raku
+use PostCocoon::Url;
+
+say url-encode("👌");           # %F0%9F%91%8C
+say url-decode("%F0%9F%91%8C"); # 👌
+```
+
+DESCRIPTION
+===========
 
 A collection of functions that can be used for URL parsing, building and changing.
 
@@ -17,49 +24,49 @@ Also provides an loose URL tokenizer
 
 ### sub url-encode
 
-```perl6
+```raku
 sub url-encode(
-    Str $data
-) returns Str
+    Str:D $data
+) returns Str:D
 ```
 
-Transforms an string into an percent encoded string
+Transforms a string into a percent encoded string
 
 ### sub url-decode
 
-```perl6
+```raku
 sub url-decode(
-    Str $data
-) returns Str
+    Str:D $data
+) returns Str:D
 ```
 
-Transforms an percent encoded string into an plain string
+Transforms a percent encoded string into a plain string
 
-### sub build-query-string
+### multi sub build-query-string
 
-```perl6
-sub build-query-string(
-    Hash $hash
-) returns Str
+```raku
+multi sub build-query-string(
+    Hash:D $hash
+) returns Str:D
 ```
 
-Build an query string from an Hash
+Build a query string from a Hash
 
-### sub build-query-string
+### multi sub build-query-string
 
-```perl6
-sub build-query-string(
+```raku
+multi sub build-query-string(
     *%hash
-) returns Str
+) returns Str:D
 ```
 
-Build an query string from the named arguments
+Build a query string from the named arguments
 
 ### sub parse-query-string
 
-```perl6
+```raku
 sub parse-query-string(
-    Str $query-string
+    Str:D $query-string
 ) returns Hash
 ```
 
@@ -68,45 +75,59 @@ Parse a query string
 class PostCocoon::Url::URL-Parser
 ---------------------------------
 
-Loose URL parser that doesn't follow RFC3986 not completly.
+Loose URL parser that doesn't follow RFC3986 not completely
 
 ### sub is-valid-url
 
-```perl6
+```raku
 sub is-valid-url(
     Str $uri
 ) returns Bool
 ```
 
-Check if something is a valid url according to the parser
+Check if something is a valid URL according to the parser
 
 ### sub parse-url
 
-```perl6
+```raku
 sub parse-url(
     Str $uri
 ) returns Hash
 ```
 
-Return an hash with all items of the url
+Return a hash with all items of the URL
 
-### sub build-url
+### multi sub build-url
 
-```perl6
-sub build-url(
-    Hash $hash
-) returns Str
+```raku
+multi sub build-url(
+    Hash:D $hash
+) returns Str:D
 ```
 
-Build an url from given hash, this function does no error checking at all, it may result in an invalid url
+Build a URL from a given hash, this function does no error checking at all, it may result in an invalid URL
 
-### sub build-url
+### multi sub build-url
 
-```perl6
-sub build-url(
+```raku
+multi sub build-url(
     *%hash
 ) returns Str
 ```
 
 Build an url from given named parameters, this function does no error checking at all, it may result in an invalid url
+
+AUTHOR
+======
+
+eater
+
+COPYRIGHT AND LICENSE
+=====================
+
+Copyright 2017 eater
+
+Copyright 2024 Raku Community
+
+This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
